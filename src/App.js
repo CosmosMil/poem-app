@@ -7,6 +7,7 @@ import MyCollection from './pages/MyCollection';
 import SearchPoem from './pages/SearchPoem';
 import Navbar from './components/Navbar';
 import { AuthContextProvider } from './contexts/AuthContext';
+import { AuthDetails } from './components/AuthDetails';
 
 function App() {
   return (
