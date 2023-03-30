@@ -47,16 +47,16 @@ function Search() {
             <div className='text-center p-10'>
                     <div className='bg-lime-400 inline-block p-10'>
                         {searchResults.map((result, index) => (
-                            <li key={index}>
+                            <div key={index}>
                                 <h2 className='text-xl text-gray-500'>{result.title} by {result.author}</h2><br />
 
-                    <p className='text-gray-500'>{result.lines.map((line, index) => (
+                    <p className='text-gray-500 m-7'>{result.lines.map((line, index) => (
                   <React.Fragment key={index}>
-                      {line} <br />
+                      {line}
                       </React.Fragment>
                     ))}
                     </p>
-                            </li>
+                            </div>
                         ))}
                     </div>
               

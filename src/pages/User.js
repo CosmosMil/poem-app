@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { useState } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import { auth } from '../firebase'
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { signInWithEmailAndPassword} from 'firebase/auth';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 
@@ -60,8 +60,10 @@ function User() {
  
 
   return (
-    <>
-      {!user && <div className='grid min-h-screen justify-center'>
+
+  <>
+      
+      {!user ? <div className='grid min-h-screen justify-center'>
         
         
         <div className='mx-auto p-10'>
@@ -96,20 +98,13 @@ function User() {
   <button type="submit" className="text-gray-500 bg-lime-400 hover:bg-lime-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
         </form>
         </div>
-      </div>}
-      
-      {user && <button onClick={() => {
-        signOut(auth).then(() => {
-
-          setUser(null);
-          console.log('sign out successful')
-        }).catch(error => console.log(error))
-      }}>log out here</button>}
+      </div> : <div className='grid min-h-screen justify-center'>
+        
+        
+        <div className='mx-auto p-10'>
+        <h1 className='text-3xl text-center font-bold p-10 text-lime-400'>log in successful :)</h1></div></div>}
     
-    
-
-      
-      </> 
+</>
 
   )
 }
