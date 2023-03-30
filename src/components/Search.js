@@ -1,0 +1,75 @@
+
+import React from 'react'
+import { useState } from 'react'
+
+function Search() {
+    const [searchInput, setSearchInput] = useState('');
+    const [searchType, setSearchType] = useState('title');
+    const [searchResults, setSearchResults] = useState([]);
+
+    const handleInputChange = (event) => {
+        setSearchInput(event.target.value.toLowerCase());
+    };
+
+    const handleSearchTypeChange = (event) => {
+        setSearchType(event.target.value);
+    };
+
+    const handleSearch = async () => {
+        const response = await fetch(`https://poetrydb.org/${searchType}/${searchInput}`);
+        const result = await response.json();
+        console.log('fetch result: ', result);
+        setSearchResults(result);
+    
+
+    } 
+
+    return (
+        <>
+            <div className='grid grid-col-1 justify-center w-full'>
+        <h1 className='text-3xl text-center font-bold p-10 text-lime-400'>search for poems</h1>
+        <div className='flex justify-center space-x-3 p-10'>
+            <input type='text' value={searchInput} onChange={handleInputChange} className='w-30 bg-transparent border-solid border-2 border-lime-400' />
+            <select value={searchType} onChange={handleSearchTypeChange} className='bg-transparent border-solid border-2 border-lime-400'>
+                <option value='title'>title</option>
+                <option value='author'>author</option>
+            </select>
+            <button onClick={handleSearch} className='bg-transparent border-solid border-2 border-lime-400'>search</button>
+            </div>
+
+      
+        
+
+            
+
+              
+          
+            <div className='text-center p-10'>
+                    <div className='bg-lime-400 inline-block p-10'>
+                        {searchResults.map((result, index) => (
+                            <li key={index}>
+                                <h2 className='text-xl text-gray-500'>{result.title} by {result.author}</h2><br />
+
+                    <p className='text-gray-500'>{result.lines.map((line, index) => (
+                  <React.Fragment key={index}>
+                      {line} <br />
+                      </React.Fragment>
+                    ))}
+                    </p>
+                            </li>
+                        ))}
+                    </div>
+              
+              
+             
+
+            </div>
+        </div>
+            </>
+        
+  
+        
+    );
+}
+
+export default Search
