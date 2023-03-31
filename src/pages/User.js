@@ -102,7 +102,7 @@ function User() {
         
         
         <div className='mx-auto p-10'>
-        <h1 className='text-3xl text-center font-bold p-10 text-lime-400'>log in successful :)</h1></div></div>}
+        <h1 className='text-3xl text-center font-bold p-10 text-lime-400'>you are now logged in :)</h1></div></div>}
     
 </>
 

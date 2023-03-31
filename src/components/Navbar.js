@@ -21,8 +21,9 @@ function Navbar() {
         <li>
           <NavLink to='/search' className="block py-2 pl-3 pr-4 text-gray-700 rounded dark:text-gray-300">search for poems</NavLink>
         </li>
-        <li>
-          <NavLink to='/collection' className="block py-2 pl-3 pr-4 text-gray-700 rounded dark:text-gray-300">my collection</NavLink>
+            <li>
+              {user &&
+                <NavLink to='user/collection' className="block py-2 pl-3 pr-4 text-gray-700 rounded dark:text-gray-300">my collection</NavLink>}
         </li>
             <li>
                {user ? <button className="block py-2 pl-3 pr-4 text-gray-700 rounded dark:text-gray-300" onClick={() => {
