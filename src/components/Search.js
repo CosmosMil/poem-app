@@ -45,7 +45,7 @@ function Search() {
 
                     <p className='text-gray-500 m-7'>{result.lines.map((line, index) => (
                   <React.Fragment key={index}>
-                      {line}
+                      {line} <br/>
                       </React.Fragment>
                     ))}
                     </p>
