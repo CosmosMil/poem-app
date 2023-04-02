@@ -10,7 +10,8 @@ import { db } from '../firebase';
 function Home() {
     const [poem, setPoem] = useState([]);
     const { user } = useContext(AuthContext);
-    const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
+  const [buttonClick, setButtonClick] = useState();
 
 
     useEffect(() => {
@@ -57,7 +58,17 @@ function Home() {
       console.error('error saving poem');
       setError(e.message);
     }
-  }
+      
+    
+    }
+    const handleSavePoem = () => {
+        setButtonClick(true);
+      }
+
+      const clickEvent = () => {
+        addPoemToCollection();
+        handleSavePoem();
+      }
 
 
 
@@ -70,7 +81,7 @@ function Home() {
           {error ? (<div className='text-center p-3 text-lime-400'>{error.toLowerCase()}</div>): (
             <div className='text-center p-3'>
                     <div className='bg-lime-400 inline-block p-5 rounded'>
-                        <div className='flex justify-end m-6'><button onClick={addPoemToCollection} className='  bg-gray-500 text-lime-400 rounded h-8 w-28'>save poem</button></div>
+                <div className='flex justify-end m-6'><button onClick={clickEvent} className='  bg-gray-500 text-lime-400 rounded h-8 w-28'>{buttonClick ? 'saved' : 'save poem'}</button></div>
               <h2 className='text-xl text-gray-500'>{poem.title} by {poem.author}</h2><br/>
               
               <p className='text-gray-500'>{poem.lines && 
