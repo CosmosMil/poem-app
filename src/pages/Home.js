@@ -82,6 +82,7 @@ function Home() {
             <div className='text-center p-3'>
                     <div className='bg-lime-400 inline-block p-5 rounded'>
                 <div className='flex justify-end m-6'><button onClick={clickEvent} className='  bg-gray-500 text-lime-400 rounded h-8 w-28'>{buttonClick ? 'saved' : 'save poem'}</button></div>
+                <div className='p-5 border-2 border-gray-700 border-dotted rounded'>
               <h2 className='text-xl text-gray-500'>{poem.title} by {poem.author}</h2><br/>
               
               <p className='text-gray-500'>{poem.lines && 
@@ -90,7 +91,8 @@ function Home() {
                       {line} <br />
                       </React.Fragment>
                   ))}
-                </p>
+                  </p>
+                  </div>
             </div>
             </div> 
           )}
