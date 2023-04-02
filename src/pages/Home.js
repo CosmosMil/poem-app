@@ -55,6 +55,7 @@ function Home() {
       console.log("poem added - test");
     } catch (e) {
       console.error('error saving poem');
+      setError(e.message);
     }
   }
 
