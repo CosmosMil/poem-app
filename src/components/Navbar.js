@@ -13,7 +13,7 @@ function Navbar() {
     return (
       <>
    
-<nav className="bg-gray-700 rounded flex gap-1">
+<nav className="bg-gray-700 flex gap-1">
       <ul className="flex flex-row space-x-4 p-4 mt-5">
         <li>
           <NavLink to='/'className="block py-2 pl-3 pr-4 text-gray-700 rounded dark:text-gray-300">random poem</NavLink>

@@ -4,12 +4,13 @@ import { useContext } from "react";
 import {
   addDoc,
   collection,
+  doc
 } from "firebase/firestore";
 import { db } from '../firebase';
 
 function Home() {
-    const [poem, setPoem] = useState([]);
-    const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const [poem, setPoem] = useState([]);
   const [error, setError] = useState(false);
   const [buttonClick, setButtonClick] = useState();
 
@@ -32,13 +33,8 @@ function Home() {
       fetchPoem()
     },   [])
 
-
-    //     // const handleClick = () => {
-    //     // window.location.assign('/collection');
-
-    // }
   
-    async function addPoemToCollection() {
+  async function addPoemToCollection() {
    
     const userEmail = user.email;
     const userId = user.uid;
@@ -46,21 +42,23 @@ function Home() {
     const poemData = {
       title: poem.title,
       author: poem.author,
-      poem: poem.lines,
+      lines: poem.lines,
       userId: userId,
       userEmail: userEmail,
-    
     };
     try {
-      const docRef = await addDoc(collection(db, "fav.poem"), poemData);
-      console.log("poem added - test");
+      const userRef = doc(db, 'users', userId);
+      const favPoemsRef = collection(userRef, 'favPoems');
+
+      const docRef = await addDoc(favPoemsRef, poemData);
+        console.log("poem added to collection", docRef.id);
     } catch (e) {
       console.error('error saving poem');
       setError(e.message);
     }
-      
-    
-    }
+  
+  }
+  
     const handleSavePoem = () => {
         setButtonClick(true);
       }
