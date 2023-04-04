@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
-import {
-  addDoc,
-  collection,
-  doc
-} from "firebase/firestore";
-import { db } from '../firebase';
+import { addDoc, collection, doc } from "firebase/firestore";
+import { db } from "../firebase";
 
 function Home() {
   const { user } = useContext(AuthContext);
@@ -14,28 +10,25 @@ function Home() {
   const [error, setError] = useState(false);
   const [buttonClick, setButtonClick] = useState(false);
 
-
-    useEffect(() => {
-      const fetchPoem = async () => {
-        try {
-          const response = await fetch('https://poetrydb.org/random');
-          if (response.length < 1) {
-            throw Error('something went wrong');
-          }
-          const result = await response.json();
-          setPoem(result[0]);
-          console.log('test result', result);
-        } catch (err) {
-          console.log(err.message);
-          setError(err.message);
+  useEffect(() => {
+    const fetchPoem = async () => {
+      try {
+        const response = await fetch("https://poetrydb.org/random");
+        if (response.length < 1) {
+          throw Error("something went wrong");
         }
-      };
-      fetchPoem()
-    },   [])
+        const result = await response.json();
+        setPoem(result[0]);
+        console.log("test result", result);
+      } catch (err) {
+        console.log(err.message);
+        setError(err.message);
+      }
+    };
+    fetchPoem();
+  }, []);
 
-  
   async function addPoemToCollection() {
-   
     const userEmail = user.email;
     const userId = user.uid;
 
@@ -47,60 +40,68 @@ function Home() {
       userEmail: userEmail,
     };
     try {
-      const userRef = doc(db, 'users', userId);
-      const favPoemsRef = collection(userRef, 'favPoems');
+      const userRef = doc(db, "users", userId);
+      const favPoemsRef = collection(userRef, "favPoems");
 
       const docRef = await addDoc(favPoemsRef, poemData);
-        console.log("poem added to collection", docRef.id);
+      console.log("poem added to collection", docRef.id);
     } catch (e) {
-      console.error('error saving poem');
+      console.error("error saving poem");
       setError(e.message);
     }
-  
   }
-  
-    const handleSavePoem = () => {
-        setButtonClick(true);
-      }
 
-      const clickEvent = () => {
-        addPoemToCollection();
-        handleSavePoem();
-      }
+  const handleSavePoem = () => {
+    setButtonClick(true);
+  };
 
+  const clickEvent = () => {
+    addPoemToCollection();
+    handleSavePoem();
+  };
 
-
-    return (
-
-        <>
-      
-            <div className='grid grid-col-1 justify-center w-full'>
-                <h1 className='text-3xl text-center font-bold p-3 text-lime-400'>random poem</h1>
-          {error ? (<div className='text-center p-3 text-lime-400'>{error.toLowerCase()}</div>): (
-            <div className='text-center p-3'>
-                    <div className='bg-lime-400 inline-block p-5 rounded'>
-                <div className='flex justify-end m-6'><button onClick={clickEvent} className='  bg-gray-500 text-lime-400 rounded h-8 w-28'>{buttonClick ? 'saved' : 'save poem'}</button></div>
-                <div className='p-5 border-2 border-gray-700 border-dotted rounded'>
-                <h2 className='text-xl text-gray-500'>{poem.title} by {poem.author}</h2><br />
-              
-              
-              <p className='text-gray-500'>{poem.lines && 
-                  poem.lines.map((line, index) => (
-                  <React.Fragment key={index}>
-                      {line} <br />
-                      </React.Fragment>
-                  ))}
-                  </p>
-                  </div>
-            </div>
-            </div> 
-          )}
-
+  return (
+    <>
+      <div className="grid grid-col-1 justify-center w-full">
+        <h1 className="text-3xl text-center font-bold p-3 text-lime-400">
+          random poem
+        </h1>
+        {error ? (
+          <div className="text-center p-3 text-lime-400">
+            {error.toLowerCase()}
+          </div>
+        ) : (
+          <div className="text-center p-3">
+            <div className="bg-lime-400 inline-block p-5 rounded">
+              <div className="flex justify-end m-6">
+                <button
+                  onClick={clickEvent}
+                  className="  bg-gray-500 text-lime-400 rounded h-8 w-28"
+                >
+                  {buttonClick ? "saved" : "save poem"}
+                </button>
               </div>
-              
-            </>
-        
-  )
+              <div className="p-5 border-2 border-gray-700 border-dotted rounded">
+                <h2 className="text-xl text-gray-500">
+                  {poem.title} by {poem.author}
+                </h2>
+                <br />
+
+                <p className="text-gray-500">
+                  {poem.lines &&
+                    poem.lines.map((line, index) => (
+                      <React.Fragment key={index}>
+                        {line} <br />
+                      </React.Fragment>
+                    ))}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
 }
 
-export default Home
+export default Home;
