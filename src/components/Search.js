@@ -37,9 +37,12 @@ function Search() {
             <button onClick={handleSearch} className='bg-transparent border-2 border-lime-400 rounded'>search</button>
             </div>
 
-            <div className='text-center p-10'>
+                <div className='text-center p-10'>
+                     
                     <div className='bg-lime-400 inline-block p-10 rounded'>
+                       
                         {searchResults.map((result, index) => (
+                            <div className='p-5'>
                             <div key={index} className='p-5 border-2 border-gray-700 border-dotted rounded'>
                                 <h2 className='text-xl text-gray-500'>{result.title} by {result.author}</h2><br />
 
@@ -50,7 +53,9 @@ function Search() {
                     ))}
                     </p>
                             </div>
+                            </div>
                         ))}
+                            
                     </div>
               
               

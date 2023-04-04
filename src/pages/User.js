@@ -9,7 +9,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 
 function User() {
-  const { user, logIn, setUser } = useContext(AuthContext);
+  const { user} = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

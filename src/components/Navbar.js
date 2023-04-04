@@ -7,7 +7,7 @@ import { auth } from '../firebase';
 
 function Navbar() {
 
-  const { user, logIn, logOut, setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   console.log(user);
 
     return (

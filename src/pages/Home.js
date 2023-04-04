@@ -12,7 +12,7 @@ function Home() {
   const { user } = useContext(AuthContext);
   const [poem, setPoem] = useState([]);
   const [error, setError] = useState(false);
-  const [buttonClick, setButtonClick] = useState();
+  const [buttonClick, setButtonClick] = useState(false);
 
 
     useEffect(() => {
@@ -81,7 +81,8 @@ function Home() {
                     <div className='bg-lime-400 inline-block p-5 rounded'>
                 <div className='flex justify-end m-6'><button onClick={clickEvent} className='  bg-gray-500 text-lime-400 rounded h-8 w-28'>{buttonClick ? 'saved' : 'save poem'}</button></div>
                 <div className='p-5 border-2 border-gray-700 border-dotted rounded'>
-              <h2 className='text-xl text-gray-500'>{poem.title} by {poem.author}</h2><br/>
+                <h2 className='text-xl text-gray-500'>{poem.title} by {poem.author}</h2><br />
+              
               
               <p className='text-gray-500'>{poem.lines && 
                   poem.lines.map((line, index) => (
@@ -94,7 +95,9 @@ function Home() {
             </div>
             </div> 
           )}
-            </div>
+
+              </div>
+              
             </>
         
   )
