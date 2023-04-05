@@ -14,6 +14,7 @@ function Search() {
   const [poem, setPoem] = useState([]);
   const [error, setError] = useState(false);
   const [buttonClick, setButtonClick] = useState(false);
+  const [selectedPoem, setSelectedPoem] = useState(null);
 
   const handleInputChange = (event) => {
     setSearchInput(event.target.value.toLowerCase());
@@ -24,23 +25,29 @@ function Search() {
   };
 
   const handleSearch = async () => {
-    const response = await fetch(
-      `https://poetrydb.org/${searchType}/${searchInput}`
-    );
-    const result = await response.json();
-    console.log("fetch result: ", result);
-    setSearchResults(result);
-    setPoem(result[0]);
+    try {
+      const response = await fetch(
+        `https://poetrydb.org/${searchType}/${searchInput}`
+      );
+      const result = await response.json();
+      console.log("fetch result: ", result);
+      setSearchResults(result);
+      if (result.length > 0) {
+        setSelectedPoem(result[0]);
+      }
+    } catch (err) {
+      console.error("error fetching poem");
+      setError(err.message);
+    }
   };
-
   async function addPoemToCollection() {
     const userEmail = user.email;
     const userId = user.uid;
 
     const poemData = {
-      title: poem.title,
-      author: poem.author,
-      lines: poem.lines,
+      title: selectedPoem.title,
+      author: selectedPoem.author,
+      lines: selectedPoem.lines,
       userId: userId,
       userEmail: userEmail,
     };
@@ -95,41 +102,44 @@ function Search() {
         </button>
       </div>
 
-      {searchResults.map((result, index) => (
-        <div className="text-center p-10">
-          <div className="bg-lime-400 inline-block p-3 rounded w-2/5">
-            <div className="flex justify-end m-6">
-              <SaveButton clickEvent={clickEvent} />
-              {/* <button
+      {Array.isArray(searchResults) &&
+        searchResults.map((result, index) => (
+          <div className="text-center p-10">
+            <div className="bg-lime-400 inline-block p-3 rounded w-2/5">
+              <div className="flex justify-end m-6">
+                <SaveButton clickEvent={clickEvent} />
+                {/* <button
                 onClick={clickEvent}
                 className="  bg-gray-500 text-lime-400 rounded h-8 w-28"
               >
                 {buttonClick ? "saved" : "save poem"}
               </button> */}
-            </div>
-            <div
-              key={index}
-              className="p-5 border-2 border-gray-700 border-dotted rounded"
-            >
-              <h2 className="text-xl text-gray-500 font-semibold">
-                {poem.title}
-              </h2>
-              <br />
-              <h3 className="text-xl text-gray-500">by {poem.author}</h3>
-              <br />
-              <br />
+              </div>
+              <div
+                key={index}
+                className="p-5 border-2 border-gray-700 border-dotted rounded"
+              >
+                <h2 className="text-xl text-gray-500 font-semibold">
+                  {result.title}
+                </h2>
+                <br />
+                <h3 className="text-xl text-gray-500">
+                  by {result.author}
+                </h3>
+                <br />
+                <br />
 
-              <p className="text-gray-500">
-                {result.lines.map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line} <br />
-                  </React.Fragment>
-                ))}
-              </p>
+                <p className="text-gray-500">
+                  {result.lines.map((line, index) => (
+                    <React.Fragment key={index}>
+                      {line} <br />
+                    </React.Fragment>
+                  ))}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </>
   );
 }
