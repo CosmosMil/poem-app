@@ -97,7 +97,7 @@ function Search() {
 
       {searchResults.map((result, index) => (
         <div className="text-center p-10">
-          <div className="bg-lime-400 inline-block p-3 rounded  w-2/5">
+          <div className="bg-lime-400 inline-block p-3 rounded w-2/5">
             <div className="flex justify-end m-6">
               <SaveButton clickEvent={clickEvent} />
               {/* <button

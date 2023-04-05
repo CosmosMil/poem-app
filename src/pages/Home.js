@@ -3,6 +3,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
 import { addDoc, collection, doc } from "firebase/firestore";
 import { db } from "../firebase";
+import SaveButton from "../components/SaveButton";
 
 function Home() {
   const { user } = useContext(AuthContext);
@@ -55,30 +56,33 @@ function Home() {
     setButtonClick(true);
   };
 
-  const clickEvent = () => {
+  const clickEvent = (setLocalState) => {
     addPoemToCollection();
     handleSavePoem();
+    setLocalState(true);
   };
 
   return (
     <>
       <h1 className="text-3xl text-center font-bold p-10 text-lime-400">
         random poem
-      </h1><br />
+      </h1>
+      <br />
       {error ? (
         <div className="text-center p-3 text-lime-400">
           {error.toLowerCase()}
         </div>
       ) : (
         <div className="text-center p-3">
-          <div className="bg-lime-400 inline-block p-5 rounded">
+          <div className="bg-lime-400 inline-block p-3 rounded w-2/5">
             <div className="flex justify-end m-6">
-              <button
+              <SaveButton clickEvent={clickEvent} />
+              {/* <button
                 onClick={clickEvent}
                 className="  bg-gray-500 text-lime-400 rounded h-8 w-28"
               >
                 {buttonClick ? "saved" : "save poem"}
-              </button>
+              </button> */}
             </div>
             <div className="p-5 border-2 border-gray-700 border-dotted rounded">
               <h2 className="text-xl text-gray-500 font-semibold">
