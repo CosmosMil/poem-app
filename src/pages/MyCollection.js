@@ -43,7 +43,7 @@ function MyCollection() {
       </h1>
       {favPoem.map((poem) => (
         <div className="text-center p-10" key={poem.title}>
-          <div className="bg-lime-400 inline-block p-3 rounded w-2/5">
+          <div className="bg-lime-400 inline-block p-3 rounded w-2/3">
             <div className="flex justify-end m-6">
               <ShowButton
                 poem={poem}

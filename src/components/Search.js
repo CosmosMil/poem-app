@@ -105,7 +105,7 @@ function Search() {
       {Array.isArray(searchResults) &&
         searchResults.map((result, index) => (
           <div className="text-center p-10">
-            <div className="bg-lime-400 inline-block p-3 rounded w-2/5">
+            <div className="bg-lime-400 inline-block p-3 rounded w-2/3">
               <div className="flex justify-end m-6">
                 <SaveButton clickEvent={clickEvent} />
                 {/* <button
@@ -123,15 +123,13 @@ function Search() {
                   {result.title}
                 </h2>
                 <br />
-                <h3 className="text-xl text-gray-500">
-                  by {result.author}
-                </h3>
+                <h3 className="text-xl text-gray-500">by {result.author}</h3>
                 <br />
                 <br />
 
                 <p className="text-gray-500">
                   {result.lines.map((line, index) => (
-                    <React.Fragment key={index}>
+                    <React.Fragment key={poem.title}>
                       {line} <br />
                     </React.Fragment>
                   ))}
