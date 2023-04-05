@@ -4,6 +4,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
 import { addDoc, collection, doc } from "firebase/firestore";
 import { db } from "../firebase";
+import SaveButton from "./SaveButton";
 
 function Search() {
   const { user } = useContext(AuthContext);
@@ -59,9 +60,10 @@ function Search() {
     setButtonClick(true);
   };
 
-  const clickEvent = () => {
+  const clickEvent = (setLocalState) => {
     addPoemToCollection();
     handleSavePoem();
+    setLocalState(true);
   };
 
   return (
@@ -97,12 +99,13 @@ function Search() {
         <div className="text-center p-10">
           <div className="bg-lime-400 inline-block p-3 rounded w-2/3">
             <div className="flex justify-end m-6">
-              <button
+              <SaveButton clickEvent = {clickEvent} />
+              {/* <button
                 onClick={clickEvent}
                 className="  bg-gray-500 text-lime-400 rounded h-8 w-28"
               >
                 {buttonClick ? "saved" : "save poem"}
-              </button>
+              </button> */}
             </div>
             <div
               key={index}

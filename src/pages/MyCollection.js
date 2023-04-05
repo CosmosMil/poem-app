@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import { doc, collection, getDocs } from "firebase/firestore";
+import ShowButton from "../components/ShowButton";
 
 function MyCollection() {
   const { user } = useContext(AuthContext);
@@ -33,6 +34,8 @@ function MyCollection() {
     fetchFavPoems();
   }, [user]);
 
+  console.log(showPoem);
+
   return (
     <>
       <h1 className="text-3xl text-center font-bold p-10 text-lime-400">
@@ -42,12 +45,35 @@ function MyCollection() {
         <div className="text-center p-10" key={poem.title}>
           <div className="bg-lime-400 inline-block p-3 rounded w-2/3">
             <div className="flex justify-end m-6">
-              <button
-                onClick={() => setShowPoem(poem.title)}
-                className="bg-gray-500 text-lime-400 rounded h-8 w-28"
-              >
-                open
-              </button>
+              <ShowButton
+                poem ={poem}
+                showPoem={showPoem}
+                setShowPoem={setShowPoem}
+              />
+
+              {/* {isOpen ? (
+                <button
+                  onClick={() => {
+                    setShowPoem(poem.title);
+                    setIsOpen(!isOpen);
+                  }}
+                  className="bg-gray-500 text-lime-400 rounded h-8 w-28"
+                >
+                  open
+                </button>
+              ) : (
+                <button
+                    onClick={() => {
+                      setShowPoem(false);
+                      setIsOpen(!isOpen);
+                    }}
+                  className="bg-gray-500 text-lime-400 rounded h-8 w-28"
+                >
+                  close
+            </button>
+            
+              )} */}
+            
             </div>
 
             <div className="p-5 border-2 border-gray-700 border-dotted rounded">
@@ -58,12 +84,6 @@ function MyCollection() {
               <br />
               {showPoem === poem.title && (
                 <div className="text-center p-10">
-                  <button
-                    onClick={() => setShowPoem(false)}
-                    className="bg-gray-500 text-lime-400 rounded h-8 w-28"
-                  >
-                    close
-                  </button>
                   <p className="text-gray-500">
                     {poem.lines &&
                       poem.lines.map((line, index) => (
