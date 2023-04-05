@@ -62,44 +62,44 @@ function Home() {
 
   return (
     <>
-      <div className="grid grid-col-1 justify-center w-full">
-        <h1 className="text-3xl text-center font-bold p-3 text-lime-400">
-          random poem
-        </h1>
-        {error ? (
-          <div className="text-center p-3 text-lime-400">
-            {error.toLowerCase()}
-          </div>
-        ) : (
-          <div className="text-center p-3">
-            <div className="bg-lime-400 inline-block p-5 rounded">
-              <div className="flex justify-end m-6">
-                <button
-                  onClick={clickEvent}
-                  className="  bg-gray-500 text-lime-400 rounded h-8 w-28"
-                >
-                  {buttonClick ? "saved" : "save poem"}
-                </button>
-              </div>
-              <div className="p-5 border-2 border-gray-700 border-dotted rounded">
-                <h2 className="text-xl text-gray-500">
-                  {poem.title} by {poem.author}
-                </h2>
-                <br />
+      <h1 className="text-3xl text-center font-bold p-10 text-lime-400">
+        random poem
+      </h1><br />
+      {error ? (
+        <div className="text-center p-3 text-lime-400">
+          {error.toLowerCase()}
+        </div>
+      ) : (
+        <div className="text-center p-3">
+          <div className="bg-lime-400 inline-block p-5 rounded">
+            <div className="flex justify-end m-6">
+              <button
+                onClick={clickEvent}
+                className="  bg-gray-500 text-lime-400 rounded h-8 w-28"
+              >
+                {buttonClick ? "saved" : "save poem"}
+              </button>
+            </div>
+            <div className="p-5 border-2 border-gray-700 border-dotted rounded">
+              <h2 className="text-xl text-gray-500 font-semibold">
+                {poem.title}
+              </h2>
+              <br />
+              <h3 className="text-xl text-gray-500">by {poem.author}</h3>
+              <br />
 
-                <p className="text-gray-500">
-                  {poem.lines &&
-                    poem.lines.map((line, index) => (
-                      <React.Fragment key={index}>
-                        {line} <br />
-                      </React.Fragment>
-                    ))}
-                </p>
-              </div>
+              <p className="text-gray-500">
+                {poem.lines &&
+                  poem.lines.map((line, index) => (
+                    <React.Fragment key={index}>
+                      {line} <br />
+                    </React.Fragment>
+                  ))}
+              </p>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }

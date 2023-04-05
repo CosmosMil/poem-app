@@ -97,9 +97,9 @@ function Search() {
 
       {searchResults.map((result, index) => (
         <div className="text-center p-10">
-          <div className="bg-lime-400 inline-block p-3 rounded w-2/3">
+          <div className="bg-lime-400 inline-block p-3 rounded  w-2/5">
             <div className="flex justify-end m-6">
-              <SaveButton clickEvent = {clickEvent} />
+              <SaveButton clickEvent={clickEvent} />
               {/* <button
                 onClick={clickEvent}
                 className="  bg-gray-500 text-lime-400 rounded h-8 w-28"
@@ -111,12 +111,15 @@ function Search() {
               key={index}
               className="p-5 border-2 border-gray-700 border-dotted rounded"
             >
-              <h2 className="text-xl text-gray-500">
-                {result.title} by {result.author}
+              <h2 className="text-xl text-gray-500 font-semibold">
+                {poem.title}
               </h2>
               <br />
+              <h3 className="text-xl text-gray-500">by {poem.author}</h3>
+              <br />
+              <br />
 
-              <p className="text-gray-500 m-7">
+              <p className="text-gray-500">
                 {result.lines.map((line, index) => (
                   <React.Fragment key={index}>
                     {line} <br />

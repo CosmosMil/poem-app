@@ -43,10 +43,10 @@ function MyCollection() {
       </h1>
       {favPoem.map((poem) => (
         <div className="text-center p-10" key={poem.title}>
-          <div className="bg-lime-400 inline-block p-3 rounded w-2/3">
+          <div className="bg-lime-400 inline-block p-3 rounded w-2/5">
             <div className="flex justify-end m-6">
               <ShowButton
-                poem ={poem}
+                poem={poem}
                 showPoem={showPoem}
                 setShowPoem={setShowPoem}
               />
@@ -73,13 +73,13 @@ function MyCollection() {
             </button>
             
               )} */}
-            
             </div>
 
             <div className="p-5 border-2 border-gray-700 border-dotted rounded">
               <h2 className="text-xl text-gray-500 font-semibold">
                 {poem.title}
               </h2>
+              <br />
               <h3 className="text-xl text-gray-500">by {poem.author}</h3>
               <br />
               {showPoem === poem.title && (
