@@ -30,15 +30,14 @@ function Search() {
       const response = await fetch(
         `https://poetrydb.org/${searchType}/${searchInput}`
       );
-     
+
       const result = await response.json();
       console.log("fetch result: ", result);
       setSearchResults(result);
 
-       if (result.status) {
-         setError("no result found");
-       }
-      
+      if (result.status) {
+        setError(error);
+      }
 
       if (result.length > 0) {
         setSelectedPoem(result[0]);
@@ -94,27 +93,27 @@ function Search() {
           type="text"
           value={searchInput}
           onChange={handleInputChange}
-          className="bg-transparent border-2 border-lime-400 rounded"
+          className="bg-transparent border-2 border-lime-400 rounded text-lime-400"
         />
         <select
           value={searchType}
           onChange={handleSearchTypeChange}
-          className="bg-transparent border-2 border-lime-400 rounded"
+          className="bg-transparent border-2 border-lime-400 rounded text-lime-400 w-22"
         >
           <option value="title">title</option>
           <option value="author">author</option>
         </select>
         <button
           onClick={handleSearch}
-          className="bg-transparent border-2 border-lime-400 rounded"
+          className="bg-transparent border-2 border-lime-400 rounded text-lime-400 w-28"
         >
           search
         </button>
       </div>
       {error ? (
-        <div className="text-center p-3 text-lime-400">
-          {error}
-        </div>
+        <h2 className="text-center text-xl p-6 text-lime-400">
+          no result found, try something else!
+        </h2>
       ) : (
         <>
           {Array.isArray(searchResults) &&
@@ -145,7 +144,7 @@ function Search() {
                     <br />
 
                     <p className="text-gray-500">
-                      {result.lines.map((line, index) => (
+                      {result.lines.map((line) => (
                         <React.Fragment key={poem.title}>
                           {line} <br />
                         </React.Fragment>
@@ -155,12 +154,6 @@ function Search() {
                 </div>
               </div>
             ))}
-
-          {/* {Array.isArray(searchResults) && searchResults.length === 0 && (
-            <div className="text-center p-3 text-lime-400">
-              No results found.
-            </div>
-          )} */}
         </>
       )}
     </>

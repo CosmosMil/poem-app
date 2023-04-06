@@ -71,9 +71,9 @@ function Home() {
       </h1>
       <br />
       {error ? (
-        <div className="text-center p-3 text-lime-400">
+        <h2 className="text-center text-xl p-6 text-lime-400">
           {error.toLowerCase()}
-        </div>
+        </h2>
       ) : (
         <div className="text-center p-3">
           <div className="bg-lime-400 inline-block p-3 rounded w-2/3">
