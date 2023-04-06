@@ -77,8 +77,9 @@ function Home() {
       ) : (
         <div className="text-center p-3">
           <div className="bg-lime-400 inline-block p-3 rounded w-2/3">
-            <div className="flex justify-end m-6">
-              <SaveButton clickEvent={clickEvent} />
+              <div className="flex justify-end m-6">
+                {user && (<SaveButton clickEvent={clickEvent} />)}
+              
               {/* <button
                 onClick={clickEvent}
                 className="  bg-gray-500 text-lime-400 rounded h-8 w-28"
