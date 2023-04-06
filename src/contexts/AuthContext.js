@@ -8,22 +8,22 @@ export const AuthContext = createContext();
 export const AuthContextProvider = (props) => {
   const [user, setUser] = useState(null);
 
-  const logIn = (email, password) => {
-    const newUser = {
-      email: email,
-      password: password,
-    };
-    setUser(newUser);
-    console.log("user logged in");
-    console.log(user);
-  };
+  // const logIn = (email, password) => {
+  //   const newUser = {
+  //     email: email,
+  //     password: password,
+  //   };
+  //   setUser(newUser);
+  //   console.log("user logged in");
+  //   console.log(user);
+  // };
 
-  const logOut = () => {
-    setUser(null);
-    console.log("user logged out");
-  };
+  // const logOut = () => {
+  //   setUser(null);
+  //   console.log("user logged out");
+  // };
 
-  console.log("current user: ", user);
+  // console.log("current user: ", user);
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
@@ -39,7 +39,7 @@ export const AuthContextProvider = (props) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, logIn, logOut }}>
+    <AuthContext.Provider value={{ user, setUser }}>
       {props.children}
     </AuthContext.Provider>
   );

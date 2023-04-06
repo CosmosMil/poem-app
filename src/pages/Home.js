@@ -7,18 +7,20 @@ import SaveButton from "../components/SaveButton";
 
 function Home() {
   const { user } = useContext(AuthContext);
-  const [poem, setPoem] = useState([]);
-  const [error, setError] = useState(false);
+  const [poem, setPoem] = useState(null);
+  const [error, setError] = useState("");
   const [buttonClick, setButtonClick] = useState(false);
 
   useEffect(() => {
     const fetchPoem = async () => {
       try {
         const response = await fetch("https://poetrydb.org/random");
-        if (response.length < 1) {
-          throw Error("something went wrong");
-        }
+        
         const result = await response.json();
+        console.log(result)
+        if (result.reason) {
+          setError("something went wrong");
+        }
         setPoem(result[0]);
         console.log("test result", result);
       } catch (err) {
@@ -51,7 +53,7 @@ function Home() {
       setError(e.message);
     }
   }
-
+  console.log(error);
   const handleSavePoem = () => {
     setButtonClick(true);
   };
@@ -86,14 +88,14 @@ function Home() {
             </div>
             <div className="p-5 border-2 border-gray-700 border-dotted rounded">
               <h2 className="text-xl text-gray-500 font-semibold">
-                {poem.title}
+                {poem && poem.title}
               </h2>
               <br />
-              <h3 className="text-xl text-gray-500">by {poem.author}</h3>
+              <h3 className="text-xl text-gray-500">by {poem && poem.author}</h3>
               <br />
 
               <p className="text-gray-500">
-                {poem.lines &&
+                {poem && poem.lines &&
                   poem.lines.map((line, index) => (
                     <React.Fragment key={index}>
                       {line} <br />
