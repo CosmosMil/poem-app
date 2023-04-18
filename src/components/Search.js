@@ -36,12 +36,12 @@ function Search() {
       setSearchResults(result);
 
       if (result.status) {
-        setError(error);
+        setError(true);
       }
 
-      if (result.length > 0) {
-        setSelectedPoem(result[0]);
-      }
+      // if (result.length > 0) {
+      //   setSelectedPoem(result[0]);
+      // }
     } catch (err) {
       // console.error("error fetching poem");
       setError(err.message);
@@ -49,35 +49,14 @@ function Search() {
 
     // console.log(error);
   };
-  async function addPoemToCollection() {
-    const userEmail = user.email;
-    const userId = user.uid;
-
-    const poemData = {
-      title: selectedPoem.title,
-      author: selectedPoem.author,
-      lines: selectedPoem.lines,
-      userId: userId,
-      userEmail: userEmail,
-    };
-    try {
-      const userRef = doc(db, "users", userId);
-      const favPoemsRef = collection(userRef, "favPoems");
-
-      const docRef = await addDoc(favPoemsRef, poemData);
-      console.log("poem added to collection", docRef.id);
-    } catch (e) {
-      // console.error("error saving poem");
-      setError(e.message);
-    }
-  }
+ 
 
   const handleSavePoem = () => {
     setButtonClick(true);
   };
 
   const clickEvent = (setLocalState) => {
-    addPoemToCollection();
+    // addPoemToCollection();
     handleSavePoem();
     setLocalState(true);
   };
@@ -121,7 +100,8 @@ function Search() {
               <div className="text-center p-10">
                 <div className="bg-lime-400 inline-block p-3 rounded w-2/3">
                   <div className="flex justify-end m-6">
-                    {user && <SaveButton clickEvent={clickEvent} />}
+                    {user && <SaveButton clickEvent={clickEvent}
+                      selectedPoem={ result} />}
                     {/* <button
                 onClick={clickEvent}
                 className="  bg-gray-500 text-lime-400 rounded h-8 w-28"
