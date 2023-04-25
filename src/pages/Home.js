@@ -4,9 +4,12 @@ import { useContext } from "react";
 import { addDoc, collection, doc } from "firebase/firestore";
 import { db } from "../firebase";
 import SaveButton from "../components/SaveButton";
+import { CollectionContext } from "../contexts/CollectionContext";
 
 function Home() {
   const { user } = useContext(AuthContext);
+  const { favPoems } = useContext(CollectionContext);
+
   const [poem, setPoem] = useState(null);
   const [error, setError] = useState("");
   const [buttonClick, setButtonClick] = useState(false);
@@ -31,41 +34,42 @@ function Home() {
     fetchPoem();
   }, []);
 
-  async function addPoemToCollection() {
-    const userEmail = user.email;
-    const userId = user.uid;
+  // async function addPoemToCollection() {
+  //   const userEmail = user.email;
+  //   const userId = user.uid;
 
-    const poemData = {
-      title: poem.title,
-      author: poem.author,
-      lines: poem.lines,
-      userId: userId,
-      userEmail: userEmail,
-    };
-    try {
-      const userRef = doc(db, "users", userId);
-      const favPoemsRef = collection(userRef, "favPoems");
+  //   const poemData = {
+  //     title: poem.title,
+  //     author: poem.author,
+  //     lines: poem.lines,
+  //     userId: userId,
+  //     userEmail: userEmail,
+  //   };
+  //   try {
+  //     const userRef = doc(db, "users", userId);
+  //     const favPoemsRef = collection(userRef, "favPoems");
 
-      const docRef = await addDoc(favPoemsRef, poemData);
-      console.log("poem added to collection", docRef.id);
-    } catch (e) {
-      console.error("error saving poem");
-      setError(e.message);
-    }
-  }
+  //     const docRef = await addDoc(favPoemsRef, poemData);
+  //     console.log("poem added to collection", docRef.id);
+  //   } catch (e) {
+  //     console.error("error saving poem");
+  //     setError(e.message);
+  //   }
+  // }
   console.log(error);
-  const handleSavePoem = () => {
-    setButtonClick(true);
-  };
+  // const handleSavePoem = () => {
+  //   setButtonClick(true);
+  // };
 
-  const clickEvent = (setLocalState) => {
-    addPoemToCollection();
-    handleSavePoem();
-    setLocalState(true);
-  };
+  // const clickEvent = (setLocalState) => {
+  //   // addPoemToCollection();
+  //   // handleSavePoem();
+  //   setLocalState(true);
+  // };
 
   return (
     <>
+      {console.log(favPoems)}
       <h1 className="text-3xl text-center font-bold p-10 text-lime-400">
         random poem
       </h1>
@@ -78,7 +82,7 @@ function Home() {
         <div className="text-center p-3">
           <div className="bg-lime-400 inline-block p-3 rounded w-2/3">
               <div className="flex justify-end m-6">
-                {user && (<SaveButton clickEvent={clickEvent} />)}
+                {user && (<SaveButton selectedPoem={poem} />)}
               
               {/* <button
                 onClick={clickEvent}
