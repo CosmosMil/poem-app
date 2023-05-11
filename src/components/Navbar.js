@@ -57,7 +57,7 @@ function Navbar() {
             ) : (
               <NavLink
                 to="/user"
-                className="block py-2 pl-3 pr-4 text-gray-700 rounded dark:text-gray-300"
+                className="block py-2 pl-3 pr-4 text-gray-300 rounded"
               >
                 log in
               </NavLink>
