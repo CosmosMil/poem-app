@@ -16,7 +16,7 @@ function Navbar() {
           <li>
             <NavLink
               to="/"
-              className="block py-2 pl-3 pr-4 text-gray-700 rounded dark:text-gray-300"
+              className="block py-2 pl-3 pr-4 text-gray-300 rounded"
             >
               random poem
             </NavLink>
@@ -24,7 +24,7 @@ function Navbar() {
           <li>
             <NavLink
               to="/search"
-              className="block py-2 pl-3 pr-4 text-gray-700 rounded dark:text-gray-300"
+              className="block py-2 pl-3 pr-4 text-gray-300 rounded"
             >
               search for poems
             </NavLink>
@@ -33,7 +33,7 @@ function Navbar() {
             {user && (
               <NavLink
                 to="user/collection"
-                className="block py-2 pl-3 pr-4 text-gray-700 rounded dark:text-gray-300"
+                className="block py-2 pl-3 pr-4 text-gray-300 rounded"
               >
                 my collection
               </NavLink>
@@ -42,7 +42,7 @@ function Navbar() {
           <li>
             {user ? (
               <button
-                className="block py-2 pl-3 pr-4 text-gray-700 rounded dark:text-gray-300"
+                className="block py-2 pl-3 pr-4 text-gray-300 rounded"
                 onClick={() => {
                   signOut(auth)
                     .then(() => {
